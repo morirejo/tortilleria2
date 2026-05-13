@@ -14,11 +14,12 @@ public class PantallaMetodoPago extends javax.swing.JFrame {
      * Creates new form PantallaMetodoPago
      * @param mediador
      */
-    public ControlPresentacionVenta mediador = new ControlPresentacionVenta();
-    
-    public PantallaMetodoPago(ControlPresentacionVenta mediador) {
-        initComponents();
-    }
+    public ControlPresentacionVenta mediador;
+
+public PantallaMetodoPago(ControlPresentacionVenta mediador) {
+    initComponents();
+    this.mediador = mediador;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

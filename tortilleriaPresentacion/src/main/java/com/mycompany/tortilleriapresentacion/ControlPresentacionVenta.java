@@ -5,6 +5,7 @@
 package com.mycompany.tortilleriapresentacion;
 
 import com.mycompany.tortilleriadtos.DetalleVentaDTO;
+import com.mycompany.tortilleriadtos.VentaDTO;
 import com.mycompany.tortillerianegocio.ControlNegocioVentas;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ControlPresentacionVenta {
     private PantallaReporteVentas vistaReporte;
     private double kilosActuales;
     private double totalActual;
+    private double precioKgActual;
 
     public ControlPresentacionVenta() {
         this.controlNegocio = new ControlNegocioVentas();
@@ -40,10 +42,18 @@ public class ControlPresentacionVenta {
 
     // calcular total en la pantalla de compras
     public double calcularTotal(double kilos) {
-        this.kilosActuales = kilos;
-        this.totalActual = controlNegocio.calcularTotal(kilos);
-        return this.totalActual;
-    }
+    this.kilosActuales = kilos;
+    this.totalActual = controlNegocio.calcularTotal(kilos);
+    this.precioKgActual = (kilos > 0) ? (this.totalActual / kilos) : 0;
+    return this.totalActual;
+}
+
+public double calcularTotal(double kilos, double precioKg) {
+    this.kilosActuales = kilos;
+    this.precioKgActual = precioKg;
+    this.totalActual = kilos * precioKg;
+    return this.totalActual;
+}
 
     // comprar Tortillas a metodo pago
     public void navegarAPantallaPago(JFrame pantallaActual) {
@@ -64,7 +74,7 @@ public class ControlPresentacionVenta {
             
             if (exito) {
                 pantallaActual.dispose();
-                new PantallaExito(this, kilosActuales, totalActual).setVisible(true);
+                new PantallaTicket(this, kilosActuales, precioKgActual, totalActual).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(pantallaActual, "Error al guardar en la base de datos.");
             }
@@ -96,4 +106,17 @@ public class ControlPresentacionVenta {
             e.printStackTrace();
         }
     }
+    
+    public List<VentaDTO> obtenerTodasLasVentas() {
+    return controlNegocio.obtenerTodasLasVentas();
+}
+
+public boolean cancelarVenta(int idVenta) {
+    return controlNegocio.cancelarVenta(idVenta);
+}
+
+public void navegarAPantallaCancelacion(JFrame pantallaActual) {
+    pantallaActual.dispose();
+    new PantallaCancelacion(this).setVisible(true);
+}
 }

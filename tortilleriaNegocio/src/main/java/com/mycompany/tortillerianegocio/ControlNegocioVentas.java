@@ -41,4 +41,11 @@ public class ControlNegocioVentas {
     public double calcularKilosTotales(List<VentaDTO> ventas) {
         return gestor.calcularKilosTotales(ventas);
     }
+    public List<VentaDTO> obtenerTodasLasVentas() {
+    return dao.obtenerTodasLasVentas();
+}
+
+public boolean cancelarVenta(int idVenta) {
+    return dao.cancelarVenta(idVenta);
+}
 }

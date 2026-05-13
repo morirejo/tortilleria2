@@ -25,15 +25,11 @@ public class GestorVentas implements IGestorVentas{
 
     @Override
     public VentaDTO generarVenta(List<DetalleVentaDTO> carrito, double efectivoRecibido, String metodoPago) {
-        double total = carrito.stream().mapToDouble(DetalleVentaDTO::getSubtotal).sum();
-        if (efectivoRecibido >= total) {
-            int folioVenta = (int) (Math.random() * 900000) + 100000;
-            Date fechaActual = new Date(); 
-            return new VentaDTO(folioVenta, carrito, total, metodoPago, fechaActual);
-        }
-        
-        return null; 
-    }
+    double total = carrito.stream().mapToDouble(DetalleVentaDTO::getSubtotal).sum();
+    int folioVenta = (int) (Math.random() * 900000) + 100000;
+    Date fechaActual = new Date();
+    return new VentaDTO(folioVenta, carrito, total, metodoPago, fechaActual);
+}
     
     @Override
     public double calcularTotaldeVentas(List<VentaDTO> ventas) {
