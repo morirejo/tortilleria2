@@ -16,10 +16,11 @@ public class PantallaMetodoPago extends javax.swing.JFrame {
      */
     public ControlPresentacionVenta mediador;
 
-public PantallaMetodoPago(ControlPresentacionVenta mediador) {
-    initComponents();
-    this.mediador = mediador;
-}
+    public PantallaMetodoPago(ControlPresentacionVenta mediador) {
+        initComponents();
+        this.mediador = mediador;
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,7 +44,7 @@ public PantallaMetodoPago(ControlPresentacionVenta mediador) {
             }
         });
 
-        comboBoxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta debito", "Tarjeta credigo" }));
+        comboBoxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta debito", "Tarjeta credito" }));
         comboBoxMetodo.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -92,12 +93,20 @@ public PantallaMetodoPago(ControlPresentacionVenta mediador) {
 
     private void btnConfirmarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagoActionPerformed
         try {
-            String input = javax.swing.JOptionPane.showInputDialog(this, "¿De cuánto es el billete/pago recibido?");
-            float billete = Float.parseFloat(input);
             String metodoPago = comboBoxMetodo.getSelectedItem().toString();
-            mediador.solicitarCobro(billete,metodoPago, this);
+            double dineroRecibido = 0.0;
+            if (metodoPago.equalsIgnoreCase("Efectivo")) {
+                String input = javax.swing.JOptionPane.showInputDialog(this, "¿De cuánto es el billete/pago recibido?");
+                if (input == null || input.trim().isEmpty()) {
+                    return; 
+                }
+                dineroRecibido = Double.parseDouble(input);
+            } else {
+                dineroRecibido = mediador.getTotalActual();
+            }
+            mediador.solicitarCobro(dineroRecibido, metodoPago, this);
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un monto numérico válido.");
         }
     }//GEN-LAST:event_btnConfirmarPagoActionPerformed
 

@@ -18,7 +18,8 @@ public class ControlPresentacionCierre {
     private CorteCajaDTO corteTemporal;
 
     public void iniciarCierre() {
-        new PantallaCierrePrincipal(this).setVisible(true);
+        double[] totales = negocio.obtenerTotales();
+        new PantallaCierrePrincipal(this, totales).setVisible(true);
     }
 
     public void irAConteoEfectivo(JFrame actual) {

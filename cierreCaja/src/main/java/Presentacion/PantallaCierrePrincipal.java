@@ -12,10 +12,21 @@ public class PantallaCierrePrincipal extends javax.swing.JFrame {
     
     
     private ControlPresentacionCierre mediador;
-    public PantallaCierrePrincipal(ControlPresentacionCierre mediador) {
+    public PantallaCierrePrincipal(ControlPresentacionCierre mediador, double[] totales) {
         initComponents();
         this.mediador = mediador;
         this.setLocationRelativeTo(null); 
+        ventasEfectivo.setText(String.format("$ %.2f", totales[0]));
+        VentasCredito.setText(String.format("$ %.2f", totales[1]));
+        VentasDebito.setText(String.format("$ %.2f", totales[2]));
+
+        double totalSistema = totales[0] + totales[1] + totales[2];
+        Total.setText(String.format("$ %.2f", totalSistema));
+        
+        ventasEfectivo.setEditable(false);
+        VentasCredito.setEditable(false);
+        VentasDebito.setEditable(false);
+        Total.setEditable(false);
     }
 
     /**
@@ -44,7 +55,7 @@ public class PantallaCierrePrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Ventas en efectivo");
 
-        jLabel2.setText("Ventas con tarjeta credito");
+        jLabel2.setText("Ventas con tarjeta de credito");
 
         jLabel3.setText("Ventas con tarjeta de debito");
 

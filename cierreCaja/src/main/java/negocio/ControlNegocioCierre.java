@@ -16,6 +16,10 @@ public class ControlNegocioCierre {
     public CorteCajaDTO calcularCierre(double efectivoFisico) {
         return gestor.prepararResumen(efectivoFisico);
     }
+    
+    public double[] obtenerTotales(){
+        return gestor.obtenerTotalesSistema();
+    }
 
     public boolean guardarCierre(CorteCajaDTO corte) {
         return gestor.cerrarCaja(corte);

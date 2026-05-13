@@ -4,8 +4,8 @@
  */
 package negocio;
 
+import com.mycompany.tortilleriadtos.PedidoDTO;
 import daos.PedidoDAO;
-import dtos.PedidoDTO;
 
 /**
  *

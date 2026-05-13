@@ -20,11 +20,11 @@ public class Pedido {
         this.producto = producto;
         this.cantidad = cantidad;
         this.direccion = direccion;
-        calcularTotal();
+        this.total = calcularTotal();
     }
 
-    public void calcularTotal() {
-        total = producto.getPrecio() * cantidad;
+    public double calcularTotal() {
+        return total = producto.getPrecio() * cantidad;
     }
 
     public void asignarRepartidor(Repartidor repartidor) {

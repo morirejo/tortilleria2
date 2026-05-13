@@ -16,5 +16,6 @@
         <module>../tortilleriaNegocio</module>
         <module>../tortilleriaPresentacion</module>
         <module>../cierreCaja</module>
+        <module>../ProyectoPedidoDomicilio</module>
     </modules>
 </project>
