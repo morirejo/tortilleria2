@@ -15,4 +15,6 @@ import java.util.List;
 public interface IVentaDAO {
     public boolean guardarVenta(VentaDTO venta);
     public List<VentaDTO> ventasPorFecha(LocalDate inicio, LocalDate fin);
+    public List<VentaDTO> obtenerTodasLasVentas();
+    public boolean cancelarVenta(int idVenta);
 }
