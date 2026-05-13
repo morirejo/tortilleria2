@@ -67,4 +67,49 @@ public class VentaDAO implements  IVentaDAO{
         }
         return lista;
     }
+    
+    @Override
+public List<VentaDTO> obtenerTodasLasVentas() {
+    List<VentaDTO> lista = new ArrayList<>();
+    for (Document doc : collection.find()) {
+        Number totalNum = (Number) doc.get("montoTotal");
+        double total = totalNum != null ? totalNum.doubleValue() : 0.0;
+        String metodo = doc.getString("metodoPago") != null ? doc.getString("metodoPago") : "Efectivo";
+        Date fecha = new Date(); 
+        Object fechaObjeto = doc.get("fecha");
+        if (fechaObjeto instanceof java.util.Date) {
+            fecha = (java.util.Date) fechaObjeto; 
+        } else if (fechaObjeto instanceof Long) {
+            fecha = new Date((Long) fechaObjeto); 
+        }
+        int id = doc.getInteger("idVenta", 0);
+
+        List<DetalleVentaDTO> productos = new ArrayList<>();
+        List<Document> prods = (List<Document>) doc.get("productos");
+        if (prods != null) {
+            for (Document p : prods) {
+                Number kilos = (Number) p.get("cantidadKilos");
+                Number subtotal = (Number) p.get("subtotal");
+                productos.add(new DetalleVentaDTO(
+                    p.getString("nombreProducto"),
+                    kilos != null ? kilos.doubleValue() : 0,
+                    subtotal != null ? subtotal.doubleValue() : 0
+                ));
+            }
+        }
+        lista.add(new VentaDTO(id, productos, total, metodo, fecha));
+    }
+    return lista;
+}
+
+@Override
+public boolean cancelarVenta(int idVenta) {
+    try {
+        collection.deleteOne(new Document("idVenta", idVenta));
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 }

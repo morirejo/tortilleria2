@@ -18,10 +18,11 @@ public class PantallaVenta extends javax.swing.JFrame {
      * Creates new form PantallaVenta
      */
     
-    private ControlPresentacionVenta mediador = new ControlPresentacionVenta();
+    private ControlPresentacionVenta mediador;
     
     public PantallaVenta(ControlPresentacionVenta mediador) {
         initComponents();
+        this.mediador = mediador; 
         DocumentListener listener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) { actualizarTotalVisual(); }
@@ -71,6 +72,7 @@ public class PantallaVenta extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         BtnReportes = new javax.swing.JButton();
         btnCierre = new javax.swing.JButton();
+        btnCancelarventa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +140,13 @@ public class PantallaVenta extends javax.swing.JFrame {
             }
         });
 
+        btnCancelarventa.setText("Cancelar Venta");
+        btnCancelarventa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarventaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,7 +174,10 @@ public class PantallaVenta extends javax.swing.JFrame {
                                         .addComponent(fieldCantidad))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnCierre))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnCierre)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCancelarventa)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(185, 185, 185)
                         .addComponent(btnConfirmar)))
@@ -191,7 +203,9 @@ public class PantallaVenta extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
-                .addComponent(btnCierre)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCierre)
+                    .addComponent(btnCancelarventa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
@@ -221,8 +235,9 @@ public class PantallaVenta extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         try {
             double kilos = Double.parseDouble(fieldCantidad.getText());
-            mediador.calcularTotal(kilos);
-            mediador.navegarAPantallaPago(this);
+double precioKg = Double.parseDouble(jTextField2.getText().trim());
+mediador.calcularTotal(kilos, precioKg);
+mediador.navegarAPantallaPago(this);
             
         } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ingresar kilos en numero");
@@ -238,9 +253,14 @@ public class PantallaVenta extends javax.swing.JFrame {
         mediadorCierre.iniciarCierre();
     }//GEN-LAST:event_btnCierreActionPerformed
 
+    private void btnCancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarventaActionPerformed
+        mediador.navegarAPantallaCancelacion(PantallaVenta.this);
+    }//GEN-LAST:event_btnCancelarventaActionPerformed
+    private javax.swing.JButton btnCancelarVenta;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnReportes;
+    private javax.swing.JButton btnCancelarventa;
     private javax.swing.JButton btnCierre;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JTextField fieldCantidad;
