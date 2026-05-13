@@ -4,7 +4,7 @@
  */
 package daos;
 
-import dtos.PedidoDTO;
+import com.mycompany.tortilleriadtos.PedidoDTO;
 import java.util.ArrayList;
 
 /**

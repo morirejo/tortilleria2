@@ -30,34 +30,30 @@ public class CajaDAO implements ICajaDAO {
 
     @Override
     public double[] obtenerVentasSegmentadas() {
-        double efectivo = 0.0, credito = 0.0, debito = 0.0;
+        double efectivo = 0, credito = 0, debito = 0;
         LocalDate hoy = LocalDate.now();
-        Date inicioDia = Date.from(hoy.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date finDia = Date.from(hoy.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        
-        Document filtro = new Document("fecha", new Document("$gte", inicioDia).append("$lt", finDia));
-        
+        Date inicio = Date.from(hoy.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fin = Date.from(hoy.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Document filtro = new Document("fecha", new Document("$gte", inicio).append("$lt", fin));
+
         try (MongoCursor<Document> cursor = collectionVentas.find(filtro).iterator()) {
             while (cursor.hasNext()) {
                 Document venta = cursor.next();
-                
-                Number totalNum = (Number) venta.get("montoTotal");
-                double total = totalNum != null ? totalNum.doubleValue() : 0.0;
+                double monto = venta.getDouble("montoTotal");
                 String metodo = venta.getString("metodoPago");
-                if (metodo == null) metodo = "Efectivo"; 
-                
+
+                if (metodo == null) metodo = "Efectivo";
+
                 if (metodo.equalsIgnoreCase("Efectivo")) {
-                    efectivo += total;
-                } else if (metodo.equalsIgnoreCase("Tarjeta Crédito") || metodo.equalsIgnoreCase("Crédito")) {
-                    credito += total;
-                } else if (metodo.equalsIgnoreCase("Tarjeta Débito") || metodo.equalsIgnoreCase("Débito")) {
-                    debito += total;
-                } else {
-                    efectivo += total; 
+                    efectivo += monto;
+                } else if (metodo.equalsIgnoreCase("Tarjeta Credito") || metodo.equalsIgnoreCase("Credito")) {
+                    credito += monto;
+                } else if (metodo.equalsIgnoreCase("Tarjeta Debito") || metodo.equalsIgnoreCase("Debito")) {
+                    debito += monto;
                 }
             }
         }
-        
         return new double[]{efectivo, credito, debito};
     }
 

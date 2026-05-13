@@ -21,6 +21,10 @@ public class GestorCaja implements IGestorCaja {
         
         return new CorteCajaDTO(totales[0], totales[1], totales[2], efectivoFisico);
     }
+    @Override
+    public double[] obtenerTotalesSistema() {
+        return dao.obtenerVentasSegmentadas();
+    }
 
     @Override
     public boolean cerrarCaja(CorteCajaDTO corte) {
