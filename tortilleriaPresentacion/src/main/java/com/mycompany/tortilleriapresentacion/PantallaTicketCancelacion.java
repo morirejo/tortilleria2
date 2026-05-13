@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
  * @author jorge
  */
 public class PantallaTicketCancelacion extends javax.swing.JFrame{
-     private ControlPresentacionVenta mediador;
+    private ControlPresentacionVenta mediador;
     private VentaDTO venta;
     private PantallaCancelacion pantallaCancelacion;
 

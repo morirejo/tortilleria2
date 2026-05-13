@@ -108,15 +108,19 @@ public double calcularTotal(double kilos, double precioKg) {
     }
     
     public List<VentaDTO> obtenerTodasLasVentas() {
-    return controlNegocio.obtenerTodasLasVentas();
-}
+        return controlNegocio.obtenerTodasLasVentas();
+    }
 
-public boolean cancelarVenta(int idVenta) {
-    return controlNegocio.cancelarVenta(idVenta);
-}
+    public boolean cancelarVenta(int idVenta) {
+        return controlNegocio.cancelarVenta(idVenta);
+    }
 
-public void navegarAPantallaCancelacion(JFrame pantallaActual) {
-    pantallaActual.dispose();
-    new PantallaCancelacion(this).setVisible(true);
-}
+    public void navegarAPantallaCancelacion(JFrame pantallaActual) {
+        pantallaActual.dispose();
+        new PantallaCancelacion(this).setVisible(true);
+    }
+
+    public double getTotalActual() {
+            return this.totalActual;
+    }
 }

@@ -16,6 +16,7 @@ public class PantallaLogin extends javax.swing.JFrame {
     ControlPresentacionVenta mediador = new ControlPresentacionVenta();
     public PantallaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
