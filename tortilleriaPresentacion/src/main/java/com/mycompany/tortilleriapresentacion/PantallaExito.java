@@ -84,7 +84,7 @@ public class PantallaExito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        mediador.finalizarYReiniciar(this);
+        mediador.mostrarPantallaVenta(this);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

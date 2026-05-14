@@ -95,15 +95,20 @@ public class PantallaCancelacion  extends javax.swing.JFrame{
         ventas = mediador.obtenerTodasLasVentas();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         for (VentaDTO v : ventas) {
-            double kilos = v.getProductos() != null
-                ? v.getProductos().stream().mapToDouble(d -> d.getCantidadKilos()).sum()
+            double kilos = v.getCarrito() != null
+                ? v.getCarrito().stream().mapToDouble(d -> d.getCantidadKilos()).sum()
                 : 0;
+            String metodoPago = "Desconocido";
+            if (v instanceof com.mycompany.tortilleriadtos.VentaLocalDTO) {
+                com.mycompany.tortilleriadtos.VentaLocalDTO vLocal = (com.mycompany.tortilleriadtos.VentaLocalDTO) v;
+                metodoPago = vLocal.getMetodoPago();
+            }
             modeloTabla.addRow(new Object[]{
                 v.getIdVenta(),
                 v.getFechaHora() != null ? sdf.format(v.getFechaHora()) : "—",
                 String.format("%.3f KG", kilos),
                 String.format("$ %.2f", v.getMontoTotal()),
-                v.getMetodoPago()
+                metodoPago
             });
         }
     }

@@ -4,6 +4,8 @@
  */
 package com.mycompany.tortilleriapresentacion;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MoriTejo
@@ -95,8 +97,9 @@ public class PantallaMetodoPago extends javax.swing.JFrame {
         try {
             String metodoPago = comboBoxMetodo.getSelectedItem().toString();
             double dineroRecibido = 0.0;
+            
             if (metodoPago.equalsIgnoreCase("Efectivo")) {
-                String input = javax.swing.JOptionPane.showInputDialog(this, "¿De cuánto es el billete/pago recibido?");
+                String input = JOptionPane.showInputDialog(this, "¿De cuánto es el billete recibido? \n Total a cobrar: $" + mediador.getTotalActual());
                 if (input == null || input.trim().isEmpty()) {
                     return; 
                 }
@@ -105,8 +108,9 @@ public class PantallaMetodoPago extends javax.swing.JFrame {
                 dineroRecibido = mediador.getTotalActual();
             }
             mediador.solicitarCobro(dineroRecibido, metodoPago, this);
+            
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un monto numérico válido.");
+            JOptionPane.showMessageDialog(this, "Monto inválido.");
         }
     }//GEN-LAST:event_btnConfirmarPagoActionPerformed
 

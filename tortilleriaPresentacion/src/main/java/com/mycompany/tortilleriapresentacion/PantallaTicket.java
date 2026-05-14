@@ -109,7 +109,7 @@ public class PantallaTicket extends javax.swing.JFrame {
         btnContinuar.setOpaque(true);
         btnContinuar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnContinuar.setMaximumSize(new Dimension(150, 35));
-        btnContinuar.addActionListener(evt -> mediador.finalizarYReiniciar(this));
+        btnContinuar.addActionListener(evt -> mediador.mostrarPantallaVenta(this));
 
         panelPrincipal.add(lblTitulo);
         panelPrincipal.add(Box.createVerticalStrut(4));

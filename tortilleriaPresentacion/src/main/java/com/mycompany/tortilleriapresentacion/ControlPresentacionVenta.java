@@ -6,9 +6,15 @@ package com.mycompany.tortilleriapresentacion;
 
 import com.mycompany.tortilleriadtos.DetalleVentaDTO;
 import com.mycompany.tortilleriadtos.VentaDTO;
-import com.mycompany.tortillerianegocio.ControlNegocioVentas;
-import java.time.LocalDate;
+import com.mycompany.tortilleriadtos.VentaLocalDTO;
+import com.mycompany.tortillerianegocio.FachadaVenta;
+import com.mycompany.tortillerianegocio.IFachadaVentas;
+import com.mycompany.tortilleriapresentacion.PantallaCancelacion;
+import com.mycompany.tortilleriapresentacion.PantallaMetodoPago;
+import com.mycompany.tortilleriapresentacion.PantallaTicket;
+import com.mycompany.tortilleriapresentacion.PantallaVenta;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,110 +23,100 @@ import javax.swing.JOptionPane;
  * @author MoriTejo
  */
 public class ControlPresentacionVenta {
-    private ControlNegocioVentas controlNegocio;
-    private PantallaReporteVentas vistaReporte;
-    private double kilosActuales;
-    private double totalActual;
-    private double precioKgActual;
+    private IFachadaVentas fachada = new FachadaVenta();
+    
+    private List<DetalleVentaDTO> carritoActual = new ArrayList<>();
+    private double totalActual = 0.0;
 
     public ControlPresentacionVenta() {
-        this.controlNegocio = new ControlNegocioVentas();
-        this.vistaReporte = new PantallaReporteVentas();
-        
-        vistaReporte.setGenerarListener(e -> generarReporte());
-    }
-    
-    public void iniciar(){
-        vistaReporte.setVisible(true);
     }
 
-    // login a Comprar Tortillas
-    public void navegarAPantallaVenta(JFrame pantallaAnterior) {
-        if(pantallaAnterior != null) pantallaAnterior.dispose();
-        new PantallaVenta(this).setVisible(true);
-    }
-
-    // calcular total en la pantalla de compras
-    public double calcularTotal(double kilos) {
-    this.kilosActuales = kilos;
-    this.totalActual = controlNegocio.calcularTotal(kilos);
-    this.precioKgActual = (kilos > 0) ? (this.totalActual / kilos) : 0;
-    return this.totalActual;
-}
-
-public double calcularTotal(double kilos, double precioKg) {
-    this.kilosActuales = kilos;
-    this.precioKgActual = precioKg;
-    this.totalActual = kilos * precioKg;
-    return this.totalActual;
-}
-
-    // comprar Tortillas a metodo pago
-    public void navegarAPantallaPago(JFrame pantallaActual) {
-        int respuesta = JOptionPane.showConfirmDialog(pantallaActual, "¿Desea continuar con el pago?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        
-        if (respuesta == JOptionPane.YES_OPTION) {
-            pantallaActual.dispose();
-            new PantallaMetodoPago(this).setVisible(true);
-        }
-    }
-
-    // guardar venta y a la Pantalla de Éxito
-    public void solicitarCobro(double efectivoRecibido, String metodoPago, JFrame pantallaActual) {
-        if (efectivoRecibido >= totalActual) {
-            List<DetalleVentaDTO> carrito = new ArrayList<>();
-            carrito.add(new DetalleVentaDTO("Tortilla", kilosActuales, totalActual));
-            boolean exito = controlNegocio.confirmarVenta(carrito, efectivoRecibido, metodoPago);
-            
-            if (exito) {
-                pantallaActual.dispose();
-                new PantallaTicket(this, kilosActuales, precioKgActual, totalActual).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(pantallaActual, "Error al guardar en la base de datos.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(pantallaActual, "El pago ingresado es insuficiente.");
-        }
-    }
-
-    // pantalla de Éxito de regreso a Comprar Tortillas
-    public void finalizarYReiniciar(JFrame pantallaActual) {
-        this.kilosActuales = 0;
-        this.totalActual = 0;
-        pantallaActual.dispose();
-        navegarAPantallaVenta(null);
-    }
-    
-    //generar reporte de ventas
-    public void generarReporte(){
-         try {
-            LocalDate inicio = vistaReporte.getFechaInicio();
-            LocalDate fin = vistaReporte.getFechaFin();
-            var ventas = controlNegocio.obtenerVentas(inicio, fin);
-            System.out.println("Ventas encontradas: " + ventas.size()); 
-
-            vistaReporte.mostrarDatos(ventas);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: revisa formato de fecha (dd/MM/yyyy)");
-            e.printStackTrace();
-        }
-    }
-    
-    public List<VentaDTO> obtenerTodasLasVentas() {
-        return controlNegocio.obtenerTodasLasVentas();
-    }
-
-    public boolean cancelarVenta(int idVenta) {
-        return controlNegocio.cancelarVenta(idVenta);
-    }
-
-    public void navegarAPantallaCancelacion(JFrame pantallaActual) {
-        pantallaActual.dispose();
-        new PantallaCancelacion(this).setVisible(true);
+    public void agregarProducto(String nombre, String tipoProducto, double kilos) {
+        double subtotal = fachada.calcularTotal(kilos); 
+        DetalleVentaDTO producto = new DetalleVentaDTO(nombre, tipoProducto, kilos, subtotal);
+        carritoActual.add(producto);
+        totalActual += subtotal;
     }
 
     public double getTotalActual() {
-            return this.totalActual;
+        return totalActual;
     }
+    
+    public List<DetalleVentaDTO> getCarritoActual() {
+        return carritoActual;
+    }
+
+    public void solicitarCobro(double efectivoRecibido, String metodoPago, JFrame pantallaPagoActual) {
+        int idGenerico = 0; 
+        Date fechaVenta = new Date();
+        VentaDTO ventaNueva = new VentaLocalDTO(idGenerico, totalActual, fechaVenta, metodoPago, carritoActual);
+        
+        boolean exito = fachada.confirmarVentaLocal(ventaNueva, efectivoRecibido);
+        
+        if (exito) {
+            double kilosTotales = 0.0;
+            for (DetalleVentaDTO producto : carritoActual) {
+                kilosTotales += producto.getCantidadKilos();
+            }
+            double totalDeLaVenta = totalActual;
+            double precioPorKg = (kilosTotales > 0) ? (totalDeLaVenta / kilosTotales) : 0;
+            carritoActual.clear();
+            totalActual = 0.0;
+            mostrarPantallaTicket(pantallaPagoActual, kilosTotales, precioPorKg, totalDeLaVenta);
+            
+        } else {
+            JOptionPane.showMessageDialog(pantallaPagoActual, "Error: El efectivo es insuficiente o hubo un problema.", "Pago Rechazado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+//    public void iniciarSistema() {
+//        PantallaLogin login = new PantallaLogin(this); 
+//        login.setVisible(true);
+//    }
+
+    public void mostrarPantallaVenta(JFrame pantallaActual) {
+        if (pantallaActual != null) {
+            pantallaActual.dispose();
+        }
+        PantallaVenta venta = new PantallaVenta(this);
+        venta.setVisible(true);
+    }
+
+    public void mostrarMetodoPago() {
+        PantallaMetodoPago pago = new PantallaMetodoPago(this);
+        pago.setVisible(true);
+    }
+
+    public void mostrarPantallaTicket(JFrame pantallaActual, double kilos, double precioKg, double total) {
+        if (pantallaActual != null) {
+            pantallaActual.dispose();
+        }
+        PantallaTicket ticket = new PantallaTicket(this, kilos, precioKg, total);
+        ticket.setVisible(true);
+    }
+    
+    public List<VentaDTO> obtenerTodasLasVentas() {
+        return fachada.obtenerTodasLasVentas();
+    }
+
+    public boolean cancelarVenta(int idVenta) {
+        return fachada.cancelarVenta(idVenta);
+    }
+    
+    public void mostrarPantallaCancelacion(JFrame pantallaActual) {
+        new PantallaCancelacion(this).setVisible(true);
+    }
+
+    public void mostrarPantallaReportes(JFrame pantallaActual) {
+    //    new PantallaReporteVentas(this).setVisible(true);
+    }
+
+    public void mostrarPantallaCierreCaja(JFrame pantallaActual) {
+        cierreCaja.ControlPresentacionCierre mediadorCierre = new cierreCaja.ControlPresentacionCierre();
+        double[] totalesDelDia = mediadorCierre.obtenerTotalesDelDia(); 
+        cierreCaja.PantallaCierrePrincipal pantallaCierre = new cierreCaja.PantallaCierrePrincipal(mediadorCierre, totalesDelDia);
+        pantallaCierre.setVisible(true);
+    }
+    
+    
 }

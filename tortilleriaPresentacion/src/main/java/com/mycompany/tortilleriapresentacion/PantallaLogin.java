@@ -60,7 +60,7 @@ public class PantallaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        mediador.navegarAPantallaVenta(this);
+        mediador.mostrarPantallaVenta(this);
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**

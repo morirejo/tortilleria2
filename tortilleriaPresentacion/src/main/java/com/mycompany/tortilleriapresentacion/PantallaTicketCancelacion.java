@@ -79,10 +79,14 @@ public class PantallaTicketCancelacion extends javax.swing.JFrame{
         sep2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
 
         // Detalle
-        double kilos = venta.getProductos() != null
-            ? venta.getProductos().stream().mapToDouble(d -> d.getCantidadKilos()).sum()
+        double kilos = venta.getCarrito() != null
+            ? venta.getCarrito().stream().mapToDouble(d -> d.getCantidadKilos()).sum()
             : 0;
         double precioKg = (kilos > 0) ? venta.getMontoTotal() / kilos : 0;
+        String textoMetodo = "N/A";
+        if (venta instanceof com.mycompany.tortilleriadtos.VentaLocalDTO) {
+            textoMetodo = ((com.mycompany.tortilleriadtos.VentaLocalDTO) venta).getMetodoPago();
+        }
 
         JPanel panelDetalle = new JPanel(new GridLayout(4, 2, 10, 8));
         panelDetalle.setBackground(Color.WHITE);
@@ -111,7 +115,7 @@ public class PantallaTicketCancelacion extends javax.swing.JFrame{
         panelDetalle.add(lblTotal);
 
         panelDetalle.add(new JLabel("Método Pago:"));
-        JLabel lblMetodo = new JLabel(venta.getMetodoPago());
+        JLabel lblMetodo = new JLabel(textoMetodo);
         lblMetodo.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblMetodo.setHorizontalAlignment(SwingConstants.RIGHT);
         panelDetalle.add(lblMetodo);
