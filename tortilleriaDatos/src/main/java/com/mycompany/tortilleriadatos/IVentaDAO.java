@@ -13,8 +13,8 @@ import java.util.List;
  * @author MoriTejo
  */
 public interface IVentaDAO {
-    public boolean guardarVenta(VentaDTO venta);
-    public List<VentaDTO> ventasPorFecha(LocalDate inicio, LocalDate fin);
-    public List<VentaDTO> obtenerTodasLasVentas();
-    public boolean cancelarVenta(int idVenta);
+    boolean guardarVenta(VentaDTO venta);
+    List<VentaDTO> obtenerTodasLasVentas();
+    List<VentaDTO> ventasPorFecha(LocalDate inicio, LocalDate fin);
+    boolean cancelarVenta(int idVenta);
 }
