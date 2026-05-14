@@ -12,22 +12,22 @@ import java.util.List;
  *
  * @author MoriTejo
  */
-public class VentaDTO {
-    private int idVenta; 
-    private List<DetalleVentaDTO> productos; 
-    private double montoTotal;
-    private String metodoPago;
-    private Date fechaHora;
-
-    public VentaDTO(int idVenta, List<DetalleVentaDTO> productos, double montoTotal, String metodoPago, Date fechaHora) {
-        this.idVenta = idVenta;
-        this.productos = productos;
-        this.montoTotal = montoTotal;
-        this.metodoPago = metodoPago;
-        this.fechaHora = fechaHora;
-    }
+public abstract class VentaDTO {
+    protected int idVenta;
+    protected double montoTotal;
+    protected Date fechaHora;
+    protected String tipoVenta; // Para el filtro de reportes ("LOCAL" o "DOMICILIO")
+    protected List<DetalleVentaDTO> carrito;
 
     public VentaDTO() {
+    }
+
+    public VentaDTO(int idVenta, double montoTotal, Date fechaHora, String tipoVenta, List<DetalleVentaDTO> carrito) {
+        this.idVenta = idVenta;
+        this.montoTotal = montoTotal;
+        this.fechaHora = fechaHora;
+        this.tipoVenta = tipoVenta;
+        this.carrito = carrito;
     }
 
     public int getIdVenta() {
@@ -38,28 +38,12 @@ public class VentaDTO {
         this.idVenta = idVenta;
     }
 
-    public List<DetalleVentaDTO> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<DetalleVentaDTO> productos) {
-        this.productos = productos;
-    }
-
     public double getMontoTotal() {
         return montoTotal;
     }
 
     public void setMontoTotal(double montoTotal) {
         this.montoTotal = montoTotal;
-    }
-
-    public String getMetodoPago() {
-        return metodoPago;
-    }
-
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public Date getFechaHora() {
@@ -69,6 +53,24 @@ public class VentaDTO {
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
+
+    public String getTipoVenta() {
+        return tipoVenta;
+    }
+
+    public void setTipoVenta(String tipoVenta) {
+        this.tipoVenta = tipoVenta;
+    }
+
+    public List<DetalleVentaDTO> getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(List<DetalleVentaDTO> carrito) {
+        this.carrito = carrito;
+    }
+    
+    
     
     
     

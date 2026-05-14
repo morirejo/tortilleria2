@@ -10,11 +10,13 @@ package com.mycompany.tortilleriadtos;
  */
 public class DetalleVentaDTO {
     private String nombreProducto;
+    private String tipoProducto;
     private double cantidadKilos;
     private double subtotal;
 
-    public DetalleVentaDTO(String nombreProducto, double cantidadKilos, double subtotal) {
+    public DetalleVentaDTO(String nombreProducto, String tipoProducto, double cantidadKilos, double subtotal) {
         this.nombreProducto = nombreProducto;
+        this.tipoProducto = tipoProducto;
         this.cantidadKilos = cantidadKilos;
         this.subtotal = subtotal;
     }
@@ -44,6 +46,14 @@ public class DetalleVentaDTO {
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public String getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     

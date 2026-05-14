@@ -1,0 +1,8 @@
+BOs\MapeadorVenta.class
+com\mycompany\tortillerianegocio\IFachadaVentas.class
+com\mycompany\tortillerianegocio\IGestorVentas.class
+com\mycompany\tortillerianegocio\GestorVentas.class
+BOs\VentaLocalBO.class
+com\mycompany\tortillerianegocio\FachadaVenta.class
+BOs\DetalleVentaBO.class
+BOs\VentaBO.class

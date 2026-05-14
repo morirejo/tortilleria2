@@ -8,7 +8,7 @@
     <dependencies>
     <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>tortilleriaNegocio</artifactId>
+        <artifactId>tortilleriaGestorVenta</artifactId>
         <version>${project.version}</version>
     </dependency>
     <dependency>
