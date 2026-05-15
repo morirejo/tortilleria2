@@ -2,31 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domicilio;
+package pedidoDomicilio.entidades;
 
 /**
  *
  * @author USUARIO
  */
-public class Repartidor {
+public class Producto {
     
     private String nombre;
-    private boolean disponible;
+    private double precio;
 
-    public Repartidor(String nombre) {
+    public Producto(String nombre, double precio) {
         this.nombre = nombre;
-        this.disponible = true;
+        this.precio = precio;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public double getPrecio() {
+        return precio;
     }
 }

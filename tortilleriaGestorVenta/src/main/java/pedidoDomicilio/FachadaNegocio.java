@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package negocio;
+package pedidoDomicilio;
 
 import dtos.PedidoDTO;
 
@@ -10,7 +10,13 @@ import dtos.PedidoDTO;
  *
  * @author USUARIO
  */
-public interface IControlNegocio {
+public class FachadaNegocio {
 
-    void registrarPedido(PedidoDTO pedido);
+    private ControlNegocio control =
+            new ControlNegocio();
+
+    public void registrarPedido(PedidoDTO pedido) {
+
+        control.registrarPedido(pedido);
+    }
 }

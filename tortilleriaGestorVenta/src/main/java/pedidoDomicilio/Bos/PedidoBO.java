@@ -2,21 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package negocio;
-
-import dtos.PedidoDTO;
+package pedidoDomicilio.Bos;
 
 /**
  *
  * @author USUARIO
  */
-public class FachadaNegocio {
+public class PedidoBO {
 
-    private ControlNegocio control =
-            new ControlNegocio();
+    public double calcularTotal(int cantidad) {
 
-    public void registrarPedido(PedidoDTO pedido) {
-
-        control.registrarPedido(pedido);
+        return cantidad * 20;
     }
 }

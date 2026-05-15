@@ -2,23 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package pedidoDomicilio.entidades;
 
 /**
  *
  * @author USUARIO
  */
-public class Empleado {
+public class Administrador
+        extends Empleado {
 
-    protected String nombre;
+    public Administrador(String nombre) {
 
-    public Empleado(String nombre) {
-
-        this.nombre = nombre;
+        super(nombre);
     }
 
-    public String getNombre() {
+    public void generarReporte() {
 
-        return nombre;
+        System.out.println(
+                "Reporte generado");
     }
 }

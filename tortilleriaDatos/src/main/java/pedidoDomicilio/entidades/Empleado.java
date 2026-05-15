@@ -2,16 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package bo;
+package pedidoDomicilio.entidades;
 
 /**
  *
  * @author USUARIO
  */
-public class PedidoBO {
+public class Empleado {
 
-    public double calcularTotal(int cantidad) {
+    protected String nombre;
 
-        return cantidad * 20;
+    public Empleado(String nombre) {
+
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+
+        return nombre;
     }
 }

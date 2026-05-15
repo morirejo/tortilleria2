@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package pedidoDomicilio;
 
 /**
  *
  * @author USUARIO
  */
-public class VentaDomicilio
+public class VentaDomicilioDTO
         extends Venta {
 
-    private Cliente cliente;
+    private ClienteDTO cliente;
     private String direccion;
 
-    public VentaDomicilio(
-            Cliente cliente,
+    public VentaDomicilioDTO(
+            ClienteDTO cliente,
             String direccion,
             double total) {
 
@@ -24,7 +24,7 @@ public class VentaDomicilio
         this.total = total;
     }
 
-    public Cliente getCliente() {
+    public ClienteDTO getCliente() {
         return cliente;
     }
 
