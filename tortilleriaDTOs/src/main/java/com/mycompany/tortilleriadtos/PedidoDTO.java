@@ -15,4 +15,16 @@ public class PedidoDTO {
     private String direccion;
     private double total;
 
+    public PedidoDTO() {
+    }
+
+    public PedidoDTO(String producto, int cantidad, String direccion, double total) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.direccion = direccion;
+        this.total = total;
+    }
+
+    
+
 }

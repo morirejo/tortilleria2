@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import com.mycompany.tortilleriadtos.PedidoDTO;
+
 
 /**
  *
@@ -255,8 +257,7 @@ public class PantallaPedidoDomicilio extends javax.swing.JFrame {
                         producto,
                         cantidad,
                         direccion,
-                        total,
-                        true);
+                        total);
 
         fachada.procesarPedido(pedido);
 

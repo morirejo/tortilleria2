@@ -6,6 +6,7 @@ package pedidoDomicilio;
 
 import com.mongodb.client.MongoCollection;
 import com.mycompany.tortilleriadatos.ConexionDB;
+import com.mycompany.tortilleriadtos.PedidoDTO;
 import java.util.ArrayList;
 import org.bson.Document;
 

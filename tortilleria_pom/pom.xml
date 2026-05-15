@@ -14,8 +14,6 @@
         <module>../tortilleriaDatos</module>
         <module>../tortilleriaInfraestructura</module>
         <module>../tortilleriaPresentacion</module>
-        <module>../cierreCaja</module>
-        <module>../ProyectoPedidoDomicilio</module>
         <module>../tortilleriaGestorVenta</module>
     </modules>
 </project>
