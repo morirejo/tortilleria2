@@ -4,15 +4,23 @@
  */
 package pedidoDomicilio;
 
-import dtos.PedidoDTO;
+import com.mongodb.client.MongoCollection;
+import com.mycompany.tortilleriadatos.ConexionDB;
 import java.util.ArrayList;
+import org.bson.Document;
 
 /**
  *
  * @author USUARIO
  */
 public class PedidoDAO {
+    
+    private MongoCollection<Document> collection;
 
+    public PedidoDAO() {
+        this.collection = ConexionDB.getInstance().getDatabase().getCollection("pedidos");
+    }
+    
     private ArrayList<PedidoDTO> listaPedidos =
             new ArrayList<>();
 

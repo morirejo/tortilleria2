@@ -19,10 +19,10 @@ import org.bson.Document;
  * @author marki
  */
 public class ReporteDAO implements IReporteDAO{
-    private final MongoCollection<Document> colVentas;
-    
-    public ReporteDAO(){
-        this.colVentas = ConexionDB.getInstance().getDatabase().getCollection("ventas");
+    private MongoCollection<Document> collection;
+
+    public ReporteDAO() {
+        this.collection = ConexionDB.getInstance().getDatabase().getCollection("ventas");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ReporteDAO implements IReporteDAO{
 
         List<VentaLineaDTO> lineas = new ArrayList<>();
 
-        try (MongoCursor<Document> cursor = colVentas.find(filtro).iterator()) {
+        try (MongoCursor<Document> cursor = collection.find(filtro).iterator()) {
             while (cursor.hasNext()) {
                 Document venta = cursor.next();
 
