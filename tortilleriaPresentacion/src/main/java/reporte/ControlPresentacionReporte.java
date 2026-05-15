@@ -8,14 +8,14 @@ import reporte.ReporteVentasDTO;
 import java.time.LocalDate;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import reporte.ControlNegocioReporte;
+import reporte.FachadaReporte;
 
 /**
  *
  * @author marki
  */
 public class ControlPresentacionReporte {
-    private final ControlNegocioReporte negocio = new ControlNegocioReporte();
+    private final FachadaReporte negocio = new FachadaReporte();
     private ReporteVentasDTO reporteActual;
 
     

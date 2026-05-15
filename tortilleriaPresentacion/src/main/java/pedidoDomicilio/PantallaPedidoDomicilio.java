@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import dtos.PedidoDTO;
-import pedidoDomicilio.FachadaNegocio;
 
 /**
  *
@@ -17,8 +15,8 @@ import pedidoDomicilio.FachadaNegocio;
  */
 public class PantallaPedidoDomicilio extends javax.swing.JFrame {
 
-    private FachadaNegocio fachada =
-            new FachadaNegocio();
+    private FachadaPedido fachada =
+            new FachadaPedido();
 
     public PantallaPedidoDomicilio() {
 
@@ -260,7 +258,7 @@ public class PantallaPedidoDomicilio extends javax.swing.JFrame {
                         total,
                         true);
 
-        fachada.registrarPedido(pedido);
+        fachada.procesarPedido(pedido);
 
         JOptionPane.showMessageDialog(this,
 
