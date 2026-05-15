@@ -108,14 +108,15 @@ public class ControlPresentacionVenta {
     }
 
     public void mostrarPantallaReportes(JFrame pantallaActual) {
-    //    new PantallaReporteVentas(this).setVisible(true);
+        reporte.ControlPresentacionReporte mediadorReportes = new reporte.ControlPresentacionReporte();
+            mediadorReportes.iniciarReporte();
     }
 
     public void mostrarPantallaCierreCaja(JFrame pantallaActual) {
         cierreCaja.ControlPresentacionCierre mediadorCierre = new cierreCaja.ControlPresentacionCierre();
-        double[] totalesDelDia = mediadorCierre.obtenerTotalesDelDia(); 
-        cierreCaja.PantallaCierrePrincipal pantallaCierre = new cierreCaja.PantallaCierrePrincipal(mediadorCierre, totalesDelDia);
-        pantallaCierre.setVisible(true);
+        double[] totales = mediadorCierre.obtenerTotalesDelDia(); 
+        cierreCaja.PantallaCierrePrincipal pantalla = new cierreCaja.PantallaCierrePrincipal(mediadorCierre, totales);
+        pantalla.setVisible(true);
     }
     
     

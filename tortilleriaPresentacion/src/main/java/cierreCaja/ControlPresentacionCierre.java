@@ -13,11 +13,11 @@ import javax.swing.JOptionPane;
  * @author MoriTejo
  */
 public class ControlPresentacionCierre {
-    private ControlNegocioCierre negocio = new ControlNegocioCierre();
+    private FachadaCaja fachada = new FachadaCaja();
     private CorteCajaDTO corteTemporal;
 
     public void iniciarCierre() {
-        double[] totales = negocio.obtenerTotales();
+        double[] totales = fachada.obtenerTotalesDia();
         new PantallaCierrePrincipal(this, totales).setVisible(true);
     }
 
@@ -27,7 +27,7 @@ public class ControlPresentacionCierre {
     }
 
     public void procesarConteo(double efectivoFisico, JFrame actual) {
-        this.corteTemporal = negocio.calcularCierre(efectivoFisico); 
+        this.corteTemporal = fachada.calcularCierre(efectivoFisico); 
         actual.dispose();
         new PantallaRevisionCorte(this, corteTemporal).setVisible(true);
     }
@@ -38,7 +38,7 @@ public class ControlPresentacionCierre {
     }
 
     public void finalizarCorte(JFrame actual) {
-        boolean exito = negocio.guardarCierre(this.corteTemporal);
+        boolean exito = fachada.procesarCierre(this.corteTemporal);
         if (exito) {
             actual.dispose();
             new PantallaTurnoCerrado(this).setVisible(true);
@@ -48,6 +48,6 @@ public class ControlPresentacionCierre {
     }
     
     public double[] obtenerTotalesDelDia() {
-        return negocio.obtenerTotales();
+        return fachada.obtenerTotalesDia();
     }
 }
