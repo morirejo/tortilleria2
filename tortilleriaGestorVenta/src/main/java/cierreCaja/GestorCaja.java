@@ -15,7 +15,6 @@ public class GestorCaja implements IGestorCaja {
     @Override
     public CorteCajaDTO prepararResumen(double efectivoFisico) {
         double[] totales = dao.obtenerVentasSegmentadas();
-        
         return new CorteCajaDTO(totales[0], totales[1], totales[2], efectivoFisico);
     }
     @Override
@@ -24,7 +23,22 @@ public class GestorCaja implements IGestorCaja {
     }
 
     @Override
-    public boolean cerrarCaja(CorteCajaDTO corte) {
-        return dao.guardarCorte(corte);
+    public boolean procesarCierre(CorteCajaDTO corteDTO) {
+        CorteCajaBO corteBO = new CorteCajaBO(
+            corteDTO.getVentasEfectivo(), 
+            corteDTO.getVentasCredito(), 
+            corteDTO.getVentasDebito(), 
+            corteDTO.getEfectivoContado()
+        );
+        if (corteBO.getEfectivoContado() < 0) {
+            return false; 
+        }
+        CorteCajaDTO dtoParaGuardar = new CorteCajaDTO(
+            corteBO.getVentasEfectivo(), 
+            corteBO.getVentasCredito(), 
+            corteBO.getVentasDebito(), 
+            corteBO.getEfectivoContado()
+        );
+        return dao.guardarCorte(dtoParaGuardar);
     }
 }

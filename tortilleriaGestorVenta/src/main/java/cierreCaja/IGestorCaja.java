@@ -11,6 +11,6 @@ package cierreCaja;
  */
 public interface IGestorCaja {
     public CorteCajaDTO prepararResumen(double efectivoFisico);
-    public boolean cerrarCaja(CorteCajaDTO corte);
+    public boolean procesarCierre(CorteCajaDTO corte);
     public double[] obtenerTotalesSistema();
 }

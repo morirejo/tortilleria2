@@ -4,6 +4,8 @@
  */
 package pedidoDomicilio;
 
+import com.mycompany.tortilleriadtos.PedidoDTO;
+
 /**
  *
  * @author MoriTejo
